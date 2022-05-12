@@ -7,7 +7,7 @@ ToDo is a simple task manager coded in Python and Flask.
 Clone the source code from this repository.
 
 ```bash
-git clone https://github.com/gomesluiz/todo.git
+git clone https://github.com/buccicamille/todo.git
 ```
 
 ## Setup
