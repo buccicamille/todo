@@ -1,8 +1,8 @@
 """migration to change fields
 
-Revision ID: 610060d2676c
+Revision ID: 18472648320b
 Revises: 
-Create Date: 2022-06-01 10:00:04.988548
+Create Date: 2022-06-01 11:35:37.109857
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '610060d2676c'
+revision = '18472648320b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('status', sa.String(length=200), nullable=False),
     sa.Column('category', sa.String(length=200), nullable=False),
-    sa.Column('total_time', sa.Time(), nullable=True),
+    sa.Column('total_time', sa.String(length=200), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',

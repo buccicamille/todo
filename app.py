@@ -1,8 +1,8 @@
 from asyncio import tasks
 import os
-from datetime import datetime, time
+from datetime import datetime, timedelta
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -46,8 +46,8 @@ class Task(db.Model):
     category = db.Column(db.String(200), nullable=False)
     """:type : str"""
     
-    total_time = db.Column(db.Time, default=time(0, 0))
-    """:type : time"""
+    total_time = db.Column(db.String(200), default='00:00:00')
+    """:type : str"""
 
     def __repr__(self):
         """override __repr__ method"""
@@ -102,12 +102,13 @@ def index():
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
+    """create task route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'],status='A fazer',category=request.form['category'])
+        task = Task(description=request.form['description'],status='A fazer',category=request.form['category'],total_time='00:00:00')
         try:
             db.session.add(task)
             db.session.commit()
-            return redirect('/')
+            return redirect('/tasks')
         except:
             return "Houve um erro ao inserir a tarefa"
     else:
@@ -116,6 +117,7 @@ def tasks():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """register route"""
     if request.method == 'POST':
         user = User(name=request.form['name'],email=request.form['email'],password=request.form['password'])
         
@@ -130,6 +132,7 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """login route"""
     if request.method == 'POST':
         email = request.form['email']
         pwd = request.form['password']
@@ -138,6 +141,7 @@ def login():
         
         if user and user.password == pwd:
             login_user(user) 
+            
             return redirect('/tasks')
         
     else:
@@ -146,6 +150,7 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
+    """logout route"""
     logout_user()
     return redirect('/login')
 
@@ -161,7 +166,6 @@ def delete(id):
     except:
         return "Houve um erro ao excluir a tarefa"
 
-
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def update(id):
@@ -175,6 +179,9 @@ def update(id):
         
         if not (task.status == 'A fazer' or task.status == 'Fazendo' or task.status == 'Feita'):
             raise Exception("Status inválido")
+                
+        if task.status == 'Feita':
+            task.total_time = str(datetime.now() - task.date_created)
         
         try:
             db.session.commit()

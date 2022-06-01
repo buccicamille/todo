@@ -37,7 +37,7 @@
                <td class="align-middle">{{ task.date_created.strftime('%H:%M %d/%m/%Y') }}</td>
                <td class="align-middle">{{ task.status }}</td>
                <td class="align-middle">{{ task.category }}</td>
-               <td class="align-middle">{{ task.total_time.strftime('%H:%M') }}</td>
+               <td class="align-middle">{{ task.total_time }}</td>
                <td class="align-middle actions">
                   <a class="btn btn-success" href="/update/{{task.id}}">Atualizar</a> |
                   <a class="btn btn-danger" href="/delete/{{task.id}}">Excluir</a>
