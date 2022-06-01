@@ -1,8 +1,8 @@
-"""migraton to add users database
+"""migration to change fields
 
-Revision ID: 6923d919886c
+Revision ID: 610060d2676c
 Revises: 
-Create Date: 2022-06-01 00:43:48.745896
+Create Date: 2022-06-01 10:00:04.988548
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6923d919886c'
+revision = '610060d2676c'
 down_revision = None
 branch_labels = None
 depends_on = None

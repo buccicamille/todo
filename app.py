@@ -103,7 +103,6 @@ def index():
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
-    
     if request.method == 'POST':
         task = Task(description=request.form['description'],status='A fazer',category=request.form['category'])
         try:
@@ -139,8 +138,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         
         if user and user.password == pwd:
-            login_user(user)
-                
+            login_user(user) 
             return redirect('/tasks')
         
     else:
@@ -150,7 +148,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect('/login')
 
 @app.route('/delete/<int:id>')
 @login_required
