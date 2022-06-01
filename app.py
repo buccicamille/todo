@@ -36,6 +36,9 @@ class Task(db.Model):
 
     status = db.Column(db.String(200), nullable=False)
     """:type : str"""
+    
+    category = db.Column(db.String(200), nullable=False)
+    """:type : str"""
 
     def __repr__(self):
         """override __repr__ method"""
@@ -48,7 +51,7 @@ class Task(db.Model):
 def index():
     """root route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'],status='A fazer')
+        task = Task(description=request.form['description'],status='A fazer',category=request.form['category'])
         try:
             db.session.add(task)
             db.session.commit()
@@ -79,6 +82,7 @@ def update(id):
     if request.method == 'POST':
         task.description = request.form['description']
         task.status = request.form['status']
+        task.category = request.form['category']
         
         if not (task.status == 'A fazer' or task.status == 'Fazendo' or task.status == 'Feita'):
             raise Exception("Status inválido")

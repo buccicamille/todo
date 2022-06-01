@@ -2,12 +2,12 @@
 
 {% block html_attribs %} lang="pt-BR" {% endblock %}
 
-{% block title %}Update{% endblock %}
+{% block title %}Atualizar{% endblock %}
 
 {% block content %}
 <div class="container">
    <div class="page-header">
-      <h1 class="text-center text-primary">Update Task</h1>
+      <h1 class="text-center text-primary">Atualizar tarefa</h1>
    </div>
 
    <form class="form-inline" action="/update/{{task.id}}" method="POST">
@@ -16,8 +16,10 @@
          <input type="text" class="form-control" name="description" id="description" value="{{task.description}}">
          <label for="status">Status: (A fazer, Fazendo, Feita)</label>
          <input type="text" class="form-control" name="status" id="status" value="{{task.status}}">
-         <button type="submit" class="btn btn-primary">Update</button>
-         <a class="btn btn-danger" href="/">Cancel</a>
+         <label for="Category">Categoria: </label>
+         <input type="text" class="form-control" name="category" id="category" value="{{task.category}}">
+         <button type="submit" class="btn btn-primary">Atualizar</button>
+         <a class="btn btn-danger" href="/">Cancelar</a>
       </div>
    </form>
 </div>

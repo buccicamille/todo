@@ -8,17 +8,18 @@
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 <div class="container">
    <div class="page-header">
-      <h1 class="text-center text-primary">ToDo: Never forget your duties</h1>
+      <h1 class="text-center text-primary">ToDo: Nunca esqueça das suas obrigações</h1>
    </div>
-   {% if tasks|length < 1 %} <h4 class="text-center text-warning">There are no tasks. Create one below!</h4>
+   {% if tasks|length < 1 %} <h4 class="text-center text-warning">Não há tarefas. Crie uma abaixo!</h4>
       {% else %}
       <table class="table table-striped">
          <thead>
             <tr>
-               <th>Description</th>
-               <th>Created</th>
+               <th>Descrição</th>
+               <th>Criada em</th>
                <th>Status</th>
-               <th>Actions</th>
+               <th>Categoria</th>
+               <th>Ações</th>
             </tr>
          </thead>
          <tbody>
@@ -27,9 +28,10 @@
                <td class="align-middle">{{ task.description }}</td>
                <td class="align-middle">{{ task.date_created.date() }}</td>
                <td class="align-middle">{{ task.status }}</td>
+               <td class="align-middle">{{ task.category }}</td>
                <td class="align-middle actions">
-                  <a class="btn btn-success" href="/update/{{task.id}}">Update</a> |
-                  <a class="btn btn-danger" href="/delete/{{task.id}}">Delete</a>
+                  <a class="btn btn-success" href="/update/{{task.id}}">Atualizar</a> |
+                  <a class="btn btn-danger" href="/delete/{{task.id}}">Excluir</a>
                </td>
             </tr>
             {% endfor %}
@@ -39,9 +41,11 @@
 
       <form class="form-inline" action="/" method="POST">
          <div class="form-group">
-            <label for="description"></label>
+            <label for="description">Descrição: </label>
             <input type="text" class="form-control" name="description" id="description">
-            <button type="submit" class="btn btn-primary">Add</button>
+            <label for="description">Categoria: </label>
+            <input type="text" class="form-control" name="category" id="category">
+            <button type="submit" class="btn btn-primary">Adicionar</button>
          </div>
       </form>
 </div>
