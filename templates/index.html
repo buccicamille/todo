@@ -17,6 +17,7 @@
             <tr>
                <th>Description</th>
                <th>Created</th>
+               <th>Status</th>
                <th>Actions</th>
             </tr>
          </thead>
@@ -25,6 +26,7 @@
             <tr>
                <td class="align-middle">{{ task.description }}</td>
                <td class="align-middle">{{ task.date_created.date() }}</td>
+               <td class="align-middle">{{ task.status }}</td>
                <td class="align-middle actions">
                   <a class="btn btn-success" href="/update/{{task.id}}">Update</a> |
                   <a class="btn btn-danger" href="/delete/{{task.id}}">Delete</a>

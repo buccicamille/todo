@@ -12,8 +12,10 @@
 
    <form class="form-inline" action="/update/{{task.id}}" method="POST">
       <div class="form-group">
-         <label for="description">Task</label>
+         <label for="description">Descrição: </label>
          <input type="text" class="form-control" name="description" id="description" value="{{task.description}}">
+         <label for="status">Status: (A fazer, Fazendo, Feita)</label>
+         <input type="text" class="form-control" name="status" id="status" value="{{task.status}}">
          <button type="submit" class="btn btn-primary">Update</button>
          <a class="btn btn-danger" href="/">Cancel</a>
       </div>

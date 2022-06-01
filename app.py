@@ -34,6 +34,9 @@ class Task(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     """:type : datetime"""
 
+    status = db.Column(db.String(200), nullable=False)
+    """:type : str"""
+
     def __repr__(self):
         """override __repr__ method"""
         return f"Task: #{self.id}, content: {self.description}"
@@ -45,13 +48,13 @@ class Task(db.Model):
 def index():
     """root route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'])
+        task = Task(description=request.form['description'],status='A fazer')
         try:
             db.session.add(task)
             db.session.commit()
             return redirect('/')
         except:
-            return "Houve um erro, ao inserir a tarefa"
+            return "Houve um erro ao inserir a tarefa"
     else:
         tasks = Task.query.order_by(Task.date_created).all()
         return render_template('index.html', tasks=tasks)
@@ -66,7 +69,7 @@ def delete(id):
         db.session.commit()
         return redirect('/')
     except:
-        return "Houve um erro, ao inserir a tarefa"
+        return "Houve um erro ao excluir a tarefa"
 
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
@@ -75,10 +78,15 @@ def update(id):
     task = Task.query.get_or_404(id)
     if request.method == 'POST':
         task.description = request.form['description']
+        task.status = request.form['status']
+        
+        if not (task.status == 'A fazer' or task.status == 'Fazendo' or task.status == 'Feita'):
+            raise Exception("Status inválido")
+        
         try:
             db.session.commit()
             return redirect('/')
         except:
-            return "Houve um erro, ao atualizar a tarefa"
+            return "Houve um erro ao atualizar a tarefa"
     else:
         return render_template('update.html', task=task)

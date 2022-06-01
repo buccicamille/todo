@@ -1,8 +1,8 @@
-"""initial migration
+"""migration to add status column
 
-Revision ID: c4925fc5e5a6
+Revision ID: bb897771ae19
 Revises: 
-Create Date: 2022-03-20 17:04:29.812232
+Create Date: 2022-05-31 20:38:31.833927
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c4925fc5e5a6'
+revision = 'bb897771ae19'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=200), nullable=False),
     sa.Column('date_created', sa.DateTime(), nullable=True),
+    sa.Column('status', sa.String(length=200), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
