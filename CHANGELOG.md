@@ -1,3 +1,5 @@
+- removed Procfile
+- added changelog
 - Closes #2
 - minor corrections to code
 - minor corrections to code
