@@ -39,6 +39,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
       - name: Set up Python version
         uses: actions/setup-python@v3.0.0
         with:
