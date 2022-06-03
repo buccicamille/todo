@@ -34,6 +34,9 @@ flask run
 ```
 
 Finally, access the address http://localhost:5000 in your browser to manage your duties ;-)
+
+## Link na Azure
+https://todocamille.azurewebsites.net/
  
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
