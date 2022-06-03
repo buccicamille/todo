@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -48,6 +48,9 @@ class Task(db.Model):
     
     total_time = db.Column(db.String(200), default='00:00:00')
     """:type : str"""
+    
+    user_id = db.Column(db.Integer, nullable = False)
+    """:type : int"""
 
     def __repr__(self):
         """override __repr__ method"""
@@ -104,7 +107,7 @@ def index():
 def tasks():
     """create task route"""
     if request.method == 'POST':
-        task = Task(description=request.form['description'],status='A fazer',category=request.form['category'],total_time='00:00:00')
+        task = Task(description=request.form['description'],status='A fazer',category=request.form['category'],total_time='00:00:00',user_id=current_user.id)
         try:
             db.session.add(task)
             db.session.commit()
@@ -112,7 +115,7 @@ def tasks():
         except:
             return "Houve um erro ao inserir a tarefa"
     else:
-        tasks = Task.query.order_by(Task.date_created).all()
+        tasks = Task.query.filter_by(user_id=current_user.id).order_by(Task.date_created).all()
         return render_template('index.html', tasks=tasks)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -143,7 +146,8 @@ def login():
             login_user(user) 
             
             return redirect('/tasks')
-        
+        else:
+            return "Houve um erro ao fazer login"     
     else:
         return render_template('login.html')
     
