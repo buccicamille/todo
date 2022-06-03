@@ -8,3 +8,7 @@ env/
 
 # Backup files.
 *.*~
+
+# Local database
+todo.sqlite
+/migrations
