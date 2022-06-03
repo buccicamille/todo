@@ -31,7 +31,7 @@ jobs:
         run: pip install -r requirements.txt
         
       - name: Initialize database
-        run: flask init db
+        run: flask db init
           flask db migrate -m "initial migration"
           flask db upgrade
         
